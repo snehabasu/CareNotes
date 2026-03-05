@@ -4,8 +4,14 @@ import { useState } from "react";
 import { MicIcon } from "./icons";
 import { RecordingSheet } from "./RecordingSheet";
 
+function newVisitId(): string {
+  if (typeof crypto !== "undefined" && crypto.randomUUID) {
+    return `visit_${crypto.randomUUID()}`;
+  }
+  return `visit_${Date.now()}`;
+}
+
 type Props = {
-  visitId: string;
   onTranscriptReady: (visitId: string, transcript: string, patientName: string) => void;
   isProcessing?: boolean;
   processingError?: string | null;
@@ -13,13 +19,18 @@ type Props = {
 };
 
 export function VoiceRecorder({
-  visitId,
   onTranscriptReady,
   isProcessing,
   processingError,
   onDismissError,
 }: Props) {
   const [sheetOpen, setSheetOpen] = useState(false);
+  const [visitId, setVisitId] = useState(newVisitId);
+
+  const openSheet = () => {
+    setVisitId(newVisitId());
+    setSheetOpen(true);
+  };
 
   // Processing / error states still display inline on the pill
   if (isProcessing) {
@@ -57,7 +68,7 @@ export function VoiceRecorder({
     <>
       {/* Idle pill */}
       <button
-        onClick={() => setSheetOpen(true)}
+        onClick={openSheet}
         className="flex items-center justify-center gap-4 rounded-full px-5 py-3 shadow-lg border border-black/5 cursor-pointer select-none transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] active:scale-95 bg-surface-card"
       >
         <div className="w-12 h-12 bg-teal text-white rounded-full flex items-center justify-center shadow-md">
@@ -66,8 +77,9 @@ export function VoiceRecorder({
         <span className="text-sm text-teal-dark/50">Record a visit note</span>
       </button>
 
-      {/* Recording bottom sheet */}
+      {/* Recording bottom sheet — keyed by visitId so state resets each session */}
       <RecordingSheet
+        key={visitId}
         open={sheetOpen}
         onClose={() => setSheetOpen(false)}
         visitId={visitId}

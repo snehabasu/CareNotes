@@ -11,15 +11,8 @@ import { saveNote } from "@/lib/noteStorage";
 import { SearchIcon, MenuIcon, XIcon } from "@/components/icons";
 import type { FullCaseNote } from "@carenotes/shared";
 
-function newVisitId(): string {
-  if (typeof crypto !== "undefined" && crypto.randomUUID) {
-    return `visit_${crypto.randomUUID()}`;
-  }
-  return `visit_${Date.now()}`;
-}
 
 export default function HomePage() {
-  const [visitId] = useState(newVisitId);
   const [isProcessing, setIsProcessing] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
@@ -49,6 +42,7 @@ export default function HomePage() {
       saveNote(note);
       // Also keep sessionStorage for backward compat
       sessionStorage.setItem("pendingCaseNote", JSON.stringify(note));
+      setIsProcessing(false);
       router.push(`/review?visitId=${note.visitId}`);
     } catch (err) {
       console.error("[HomePage] process error:", err);
@@ -165,7 +159,6 @@ export default function HomePage() {
         <div className="fixed bottom-5 left-0 right-0 z-30 flex justify-center pointer-events-none">
           <div className="pointer-events-auto">
             <VoiceRecorder
-              visitId={visitId}
               onTranscriptReady={handleTranscriptReady}
               isProcessing={isProcessing}
             />
