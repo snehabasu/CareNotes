@@ -2,7 +2,7 @@
 
 import { useEffect, useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import type { FullCaseNote, ApprovedCaseNote } from "@civicguard/shared";
+import type { FullCaseNote, ApprovedCaseNote } from "@carenotes/shared";
 import { getNoteById, saveNote } from "@/lib/noteStorage";
 import { ReviewSidebar } from "@/components/ReviewSidebar";
 import { ContextTab } from "@/components/review/ContextTab";

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import type { ProcessRequest } from "@civicguard/shared";
+import type { ProcessRequest } from "@carenotes/shared";
 import { generateCaseNote } from "@/lib/claude";
 
 /**

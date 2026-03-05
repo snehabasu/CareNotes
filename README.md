@@ -1,6 +1,6 @@
-# CivicGuard
+# CareNotes
 
-CivicGuard is an AI-assisted scribe tool for social workers. It turns post-visit voice reflections into structured, compliance-aware case notes — covering narrative summaries, SOAP notes, psychosocial assessments, ICD-10 diagnostic codes, and next-session follow-up questions — while flagging high-risk indicators and enforcing documentation boundaries.
+CareNotes is an AI-assisted scribe tool for social workers. It turns post-visit voice reflections into structured, compliance-aware case notes — covering narrative summaries, SOAP notes, psychosocial assessments, ICD-10 diagnostic codes, and next-session follow-up questions — while flagging high-risk indicators and enforcing documentation boundaries.
 
 All AI output is a draft. The clinician reviews, edits, and approves before anything is submitted to Epic.
 

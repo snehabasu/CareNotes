@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import type { TranscribeResponse } from "@civicguard/shared";
+import type { TranscribeResponse } from "@carenotes/shared";
 import { randomUUID } from "crypto";
 import { DeepgramClient } from "@deepgram/sdk";
 import { maskSensitiveContent } from "@/lib/maskTranscript";

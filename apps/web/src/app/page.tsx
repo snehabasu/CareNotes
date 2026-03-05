@@ -9,7 +9,7 @@ import { seedDummyNotes } from "@/lib/mockNotes";
 import { useNoteGroups } from "@/lib/useNoteGroups";
 import { saveNote } from "@/lib/noteStorage";
 import { SearchIcon, MenuIcon, XIcon } from "@/components/icons";
-import type { FullCaseNote } from "@civicguard/shared";
+import type { FullCaseNote } from "@carenotes/shared";
 
 function newVisitId(): string {
   if (typeof crypto !== "undefined" && crypto.randomUUID) {

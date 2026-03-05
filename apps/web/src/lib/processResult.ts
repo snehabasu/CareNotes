@@ -4,8 +4,8 @@ import type {
   SoapNote,
   StressFlag,
   ConfidenceLevel,
-} from "@civicguard/shared";
-import { LEGAL_STATUS_SIGNALS } from "@civicguard/shared";
+} from "@carenotes/shared";
+import { LEGAL_STATUS_SIGNALS } from "@carenotes/shared";
 
 const VALID_CONFIDENCE: ConfidenceLevel[] = [
   "high",

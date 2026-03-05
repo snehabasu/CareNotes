@@ -1,4 +1,4 @@
-import { LEGAL_STATUS_SIGNALS, SENSITIVE_TRANSCRIPT_PHRASES } from "@civicguard/shared";
+import { LEGAL_STATUS_SIGNALS, SENSITIVE_TRANSCRIPT_PHRASES } from "@carenotes/shared";
 
 /**
  * PII/PHI regex patterns applied to raw transcripts before any storage

@@ -10,7 +10,7 @@ import type {
   DocumentationBoundary,
   IcdCode,
   FollowUpQuestion,
-} from "@civicguard/shared";
+} from "@carenotes/shared";
 import { NoteTypePills, type NoteType } from "./NoteTypePills";
 import { CopyIcon, CheckIcon } from "../icons";
 

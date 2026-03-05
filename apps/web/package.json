@@ -1,5 +1,5 @@
 {
-  "name": "@civicguard/web",
+  "name": "@carenotes/web",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.32.0",
-    "@civicguard/shared": "*",
+    "@carenotes/shared": "*",
     "@deepgram/sdk": "^5.0.0",
     "autoprefixer": "^10.4.27",
     "framer-motion": "^11.18.2",

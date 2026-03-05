@@ -1,4 +1,4 @@
-# Product Brief: CivicGuard
+# Product Brief: CareNotes
 
 ## Problem
 Social workers spend **3–4 hours of every 8-hour workday** on documentation, reducing face-to-face support time, increasing burnout risk, and sometimes delaying care. Key pain points surfaced in user research include:
@@ -9,7 +9,7 @@ Social workers spend **3–4 hours of every 8-hour workday** on documentation, r
 - **Incomplete capture** — body language and tone are clinically significant but not captured by audio alone.
 
 ## Product Thesis
-CivicGuard acts as an **assistive memory and drafting tool** — not a replacement for clinical judgment. It captures post-visit voice reflections, extracts clinically relevant details, and drafts compliance-aware narrative outputs that the clinician reviews and approves before submission.
+CareNotes acts as an **assistive memory and drafting tool** — not a replacement for clinical judgment. It captures post-visit voice reflections, extracts clinically relevant details, and drafts compliance-aware narrative outputs that the clinician reviews and approves before submission.
 
 ## User Research Summary
 

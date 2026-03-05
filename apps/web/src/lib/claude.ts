@@ -1,12 +1,12 @@
 import Anthropic from "@anthropic-ai/sdk";
-import type { FullCaseNote, ProcessRequest } from "@civicguard/shared";
-import { HIGH_STRESS_KEYWORDS } from "@civicguard/shared";
+import type { FullCaseNote, ProcessRequest } from "@carenotes/shared";
+import { HIGH_STRESS_KEYWORDS } from "@carenotes/shared";
 import { validateFullCaseNote } from "./processResult";
 
 // Instantiated once. Reads ANTHROPIC_API_KEY from process.env (server-side only).
 const client = new Anthropic();
 
-const SYSTEM_PROMPT = `You are CivicGuard, a clinical documentation assistant for licensed social workers.
+const SYSTEM_PROMPT = `You are CareNotes, a clinical documentation assistant for licensed social workers.
 Your role is to draft documentation from post-visit voice reflections. You are an assistive tool only.
 All output is a DRAFT and will be reviewed, edited, and approved by the clinician before any use.
 
