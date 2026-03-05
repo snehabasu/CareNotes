@@ -532,11 +532,16 @@ const SEED_KEY = "caseNotesSeeded_v2";
 
 export function seedDummyNotes(): void {
   if (typeof window === "undefined") return;
-  // Only seed if we haven't for this version; bumping SEED_KEY forces a
-  // re-seed so that stale notes missing new fields get overwritten.
-  if (localStorage.getItem(SEED_KEY)) return;
-  for (const note of dummyNotes) {
-    saveNote(note);
+  try {
+    // Only seed if we haven't for this version; bumping SEED_KEY forces a
+    // re-seed so that stale notes missing new fields get overwritten.
+    if (localStorage.getItem(SEED_KEY)) return;
+    for (const note of dummyNotes) {
+      saveNote(note);
+    }
+    localStorage.setItem(SEED_KEY, "true");
+  } catch {
+    // Storage may be unavailable (e.g. private browsing, blocked storage).
+    // Bail out gracefully so the app remains functional without seeded data.
   }
-  localStorage.setItem(SEED_KEY, "true");
 }
