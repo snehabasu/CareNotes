@@ -162,6 +162,14 @@ const draftLisaToday: FullCaseNote = {
       "Session focused on pain coping and psychosocial adjustment to temporary disability.",
     ],
   },
+  icdCodes: [
+    { code: "M84.372A", description: "Stress fracture, left ankle and foot, initial encounter", confidence: "high" },
+    { code: "Z96.641", description: "Presence of right artificial hip joint", confidence: "low" },
+  ],
+  followUpQuestions: [
+    { question: "Has pain management changed since the last visit, and are you using any over-the-counter medications?", rationale: "Assessing current pain regimen helps coordinate care with primary physician." },
+    { question: "How is the limited mobility affecting your mood and daily routine?", rationale: "Adjustment to physical limitation is a key psychosocial stressor warranting monitoring." },
+  ],
 };
 
 const draftJonnyToday: FullCaseNote = {
@@ -223,6 +231,16 @@ const draftJonnyToday: FullCaseNote = {
       "Intake session for adjustment disorder with psychosocial stressors related to housing.",
     ],
   },
+  icdCodes: [
+    { code: "F43.23", description: "Adjustment disorder with mixed anxiety and depressed mood", confidence: "high" },
+    { code: "Z59.0", description: "Homelessness", confidence: "high" },
+    { code: "Z56.0", description: "Unemployment, unspecified", confidence: "medium" },
+  ],
+  followUpQuestions: [
+    { question: "Have you received any response from the housing assistance program you applied to?", rationale: "Monitoring housing application status is critical to case management planning." },
+    { question: "Can you tell me more about your support network — who you are staying with and their capacity to continue hosting?", rationale: "Assessing housing stability timeline informs urgency of intervention." },
+    { question: "Have you experienced any symptoms of depression or anxiety beyond difficulty concentrating?", rationale: "Intake did not fully screen for depression/anxiety; standardized assessment is warranted." },
+  ],
 };
 
 const draftLisaFeb25: FullCaseNote = {
@@ -281,6 +299,13 @@ const draftLisaFeb25: FullCaseNote = {
       "Group therapy session focused on evidence-based coping skills training and practice.",
     ],
   },
+  icdCodes: [
+    { code: "F41.1", description: "Generalized anxiety disorder", confidence: "medium" },
+  ],
+  followUpQuestions: [
+    { question: "In which other situations this week did you experience anxiety, and did you attempt the coping techniques?", rationale: "Tracking generalization of skills across settings informs treatment effectiveness." },
+    { question: "On a scale of 1–10, how would you rate your overall anxiety level this week compared to the previous week?", rationale: "Quantifying symptom trajectory supports outcome monitoring and insurance documentation." },
+  ],
 };
 
 // --- Dummy ApprovedCaseNote data ---
@@ -345,6 +370,15 @@ const approvedJenniferToday: ApprovedCaseNote = {
       "Trauma-focused therapy session utilizing evidence-based interventions for PTSD.",
     ],
   },
+  icdCodes: [
+    { code: "F43.10", description: "Post-traumatic stress disorder, unspecified", confidence: "high" },
+    { code: "G47.00", description: "Insomnia, unspecified", confidence: "medium" },
+  ],
+  followUpQuestions: [
+    { question: "How many nights this week did nightmares occur, and what time of night did they typically happen?", rationale: "Tracking nightmare frequency and timing informs sleep intervention planning." },
+    { question: "When a flashback occurred during the week, were you able to use the grounding technique before or only after the episode peaked?", rationale: "Understanding timing of coping skill activation helps calibrate future skill-building." },
+    { question: "Are there specific locations or times of day where hypervigilance feels most intense?", rationale: "Identifying high-trigger environments supports exposure hierarchy development." },
+  ],
 };
 
 const approvedSarahYesterday: ApprovedCaseNote = {
@@ -408,6 +442,15 @@ const approvedSarahYesterday: ApprovedCaseNote = {
       "Crisis intervention session with safety planning for adjustment disorder.",
     ],
   },
+  icdCodes: [
+    { code: "F43.25", description: "Adjustment disorder with mixed disturbance of emotions and conduct", confidence: "high" },
+    { code: "Z63.5", description: "Disruption of family by separation and divorce", confidence: "high" },
+    { code: "Z59.9", description: "Problem related to housing and economic circumstances, unspecified", confidence: "medium" },
+  ],
+  followUpQuestions: [
+    { question: "Since developing the safety plan, have you identified which coping strategy felt most accessible during a moment of overwhelm?", rationale: "Evaluating safety plan effectiveness ensures it is actionable in future crises." },
+    { question: "Has your ex-partner made any additional unannounced contact since our last session?", rationale: "Monitoring safety threat is essential given the interpersonal stressor documented at crisis intake." },
+  ],
 };
 
 const approvedDavidYesterday: ApprovedCaseNote = {
@@ -467,6 +510,13 @@ const approvedDavidYesterday: ApprovedCaseNote = {
       "Medication management follow-up and CBT session for recurrent major depressive disorder.",
     ],
   },
+  icdCodes: [
+    { code: "F33.1", description: "Major depressive disorder, recurrent, moderate", confidence: "high" },
+  ],
+  followUpQuestions: [
+    { question: "Which specific work situations triggered the most negative automatic thoughts this week, and what were the thoughts?", rationale: "Identifying specific cognitive triggers enables targeted restructuring in the next session." },
+    { question: "Have you been able to complete the behavioral activation exercise, and how did it affect your mood?", rationale: "Monitoring homework completion and mood response tracks treatment progress." },
+  ],
 };
 
 const dummyNotes: (FullCaseNote | ApprovedCaseNote)[] = [

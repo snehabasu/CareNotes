@@ -70,6 +70,8 @@ function ReviewContent() {
       psychosocial: note.psychosocial,
       stressFlags: note.stressFlags,
       boundaries: note.boundaries,
+      icdCodes: note.icdCodes,
+      followUpQuestions: note.followUpQuestions,
     };
 
     // Save approved note to localStorage (overwrites the draft)
