@@ -39,6 +39,28 @@ export function saveNote(note: StoredNote): void {
   notifyChange();
 }
 
+export function saveNotesBatch(incoming: StoredNote[]): void {
+  const notes = getAllNotes();
+
+  // Build an index of existing notes by visitId to avoid repeated linear scans.
+  const indexByVisitId = new Map<string, number>();
+  for (let i = 0; i < notes.length; i++) {
+    indexByVisitId.set(notes[i].visitId, i);
+  }
+
+  for (const note of incoming) {
+    const existingIndex = indexByVisitId.get(note.visitId);
+    if (existingIndex !== undefined) {
+      notes[existingIndex] = note;
+    } else {
+      notes.push(note);
+      indexByVisitId.set(note.visitId, notes.length - 1);
+    }
+  }
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(notes));
+  notifyChange();
+}
+
 export function deleteNote(visitId: string): void {
   const notes = getAllNotes().filter((n) => n.visitId !== visitId);
   localStorage.setItem(STORAGE_KEY, JSON.stringify(notes));
