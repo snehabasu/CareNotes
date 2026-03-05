@@ -108,51 +108,66 @@ export function RiskTrendChart({ sessions }: Props) {
             name="Low"
             stackId="risk"
             fill="#b2d8d8"
-            shape={(props: Record<string, unknown>) => (
-              <SegmentBar
-                x={props.x as number}
-                y={props.y as number}
-                width={props.width as number}
-                height={props.height as number}
-                fill={props.fill as string}
-                topRounded={topTier[props.index as number] === "low"}
-                bottomRounded
-              />
-            )}
+            shape={(props: Record<string, unknown>) => {
+              const payload = props.payload as { low?: number; medium?: number; high?: number };
+              const low = payload?.low ?? 0;
+              return (
+                <SegmentBar
+                  x={props.x as number}
+                  y={props.y as number}
+                  width={props.width as number}
+                  height={props.height as number}
+                  fill={props.fill as string}
+                  topRounded={topTier[props.index as number] === "low"}
+                  bottomRounded={low > 0}
+                />
+              );
+            }}
           />
           <Bar
             dataKey="medium"
             name="Medium"
             stackId="risk"
             fill="#f5a623"
-            shape={(props: Record<string, unknown>) => (
-              <SegmentBar
-                x={props.x as number}
-                y={props.y as number}
-                width={props.width as number}
-                height={props.height as number}
-                fill={props.fill as string}
-                topRounded={topTier[props.index as number] === "medium"}
-                bottomRounded={false}
-              />
-            )}
+            shape={(props: Record<string, unknown>) => {
+              const payload = props.payload as { low?: number; medium?: number; high?: number };
+              const low = payload?.low ?? 0;
+              const medium = payload?.medium ?? 0;
+              return (
+                <SegmentBar
+                  x={props.x as number}
+                  y={props.y as number}
+                  width={props.width as number}
+                  height={props.height as number}
+                  fill={props.fill as string}
+                  topRounded={topTier[props.index as number] === "medium"}
+                  bottomRounded={low <= 0 && medium > 0}
+                />
+              );
+            }}
           />
           <Bar
             dataKey="high"
             name="High"
             stackId="risk"
             fill="#ef4444"
-            shape={(props: Record<string, unknown>) => (
-              <SegmentBar
-                x={props.x as number}
-                y={props.y as number}
-                width={props.width as number}
-                height={props.height as number}
-                fill={props.fill as string}
-                topRounded={topTier[props.index as number] === "high"}
-                bottomRounded={false}
-              />
-            )}
+            shape={(props: Record<string, unknown>) => {
+              const payload = props.payload as { low?: number; medium?: number; high?: number };
+              const low = payload?.low ?? 0;
+              const medium = payload?.medium ?? 0;
+              const high = payload?.high ?? 0;
+              return (
+                <SegmentBar
+                  x={props.x as number}
+                  y={props.y as number}
+                  width={props.width as number}
+                  height={props.height as number}
+                  fill={props.fill as string}
+                  topRounded={topTier[props.index as number] === "high"}
+                  bottomRounded={low <= 0 && medium <= 0 && high > 0}
+                />
+              );
+            }}
           />
         </BarChart>
       </ResponsiveContainer>
