@@ -1,5 +1,5 @@
 import type { FullCaseNote, ApprovedCaseNote } from "@carenotes/shared";
-import { saveNote } from "./noteStorage";
+import { saveNotesBatch } from "./noteStorage";
 
 export type MockNote = {
   id: string;
@@ -15,6 +15,29 @@ export type MockNote = {
 export type NoteGroup = {
   label: string;
   notes: MockNote[];
+};
+
+export type SessionSummary = {
+  visitId: string;
+  date: Date;
+  dateLabel: string;   // "Today", "Feb 25", etc.
+  time: string;        // "12:21pm"
+  status: "draft" | "approved";
+  tags: string[];      // first 3 stress flag keywords
+  highCount: number;
+  mediumCount: number;
+  lowCount: number;
+};
+
+export type PatientGroup = {
+  patientName: string;
+  initials: string;
+  avatarColor: string;
+  lastSessionDate: Date;
+  lastSessionLabel: string; // "Today at 12:21pm"
+  totalSessions: number;
+  peakSeverity: "high" | "medium" | "low" | "none";
+  sessions: SessionSummary[]; // oldest → newest (chart order)
 };
 
 export const mockPatients = [
@@ -532,6 +555,7 @@ const SEED_KEY = "caseNotesSeeded_v2";
 
 export function seedDummyNotes(): void {
   if (typeof window === "undefined") return;
+
   try {
     // Only seed if we haven't for this version; bumping SEED_KEY forces a
     // re-seed so that stale notes missing new fields get overwritten.
@@ -544,4 +568,4 @@ export function seedDummyNotes(): void {
     // Storage may be unavailable (e.g. private browsing, blocked storage).
     // Bail out gracefully so the app remains functional without seeded data.
   }
-}
+
