@@ -8,7 +8,9 @@ import type {
   PsychosocialAssessment,
   StressFlag,
   DocumentationBoundary,
-} from "@civicguard/shared";
+  IcdCode,
+  FollowUpQuestion,
+} from "@carenotes/shared";
 import { NoteTypePills, type NoteType } from "./NoteTypePills";
 import { CopyIcon, CheckIcon } from "../icons";
 
@@ -55,6 +57,20 @@ function serializeFlags(flags: StressFlag[]): string {
     .join("\n");
 }
 
+function serializeIcdCodes(codes: IcdCode[]): string {
+  if (codes.length === 0) return "No ICD-10-CM codes are supportable from the current transcript.";
+  return codes
+    .map((c) => `${c.code} — ${c.description} [${c.confidence.replace("_", " ")}]`)
+    .join("\n");
+}
+
+function serializeFollowUpQuestions(questions: FollowUpQuestion[]): string {
+  if (questions.length === 0) return "No follow-up questions generated.";
+  return questions
+    .map((q, i) => `${i + 1}. ${q.question}\n   Rationale: ${q.rationale}`)
+    .join("\n\n");
+}
+
 function serializeBoundaries(b: DocumentationBoundary): string {
   const parts: string[] = [];
 
@@ -81,7 +97,7 @@ function serializeBoundaries(b: DocumentationBoundary): string {
   return parts.join("\n\n");
 }
 
-type NoteData = Pick<FullCaseNote | ApprovedCaseNote, "soap" | "narrativeSummary" | "psychosocial" | "stressFlags" | "boundaries">;
+type NoteData = Pick<FullCaseNote | ApprovedCaseNote, "soap" | "narrativeSummary" | "psychosocial" | "stressFlags" | "boundaries" | "icdCodes" | "followUpQuestions">;
 
 function initTexts(note: NoteData): Record<NoteType, string> {
   return {
@@ -90,6 +106,8 @@ function initTexts(note: NoteData): Record<NoteType, string> {
     psychosocial: serializePsychosocial(note.psychosocial),
     flags: serializeFlags(note.stressFlags),
     boundaries: serializeBoundaries(note.boundaries),
+    icd: serializeIcdCodes(note.icdCodes),
+    followup: serializeFollowUpQuestions(note.followUpQuestions),
   };
 }
 
@@ -111,7 +129,7 @@ function useAutoResize(value: string) {
 /* ── Component ── */
 
 type Props = {
-  note: NoteData & { psychosocial: PsychosocialAssessment };
+  note: NoteData & { psychosocial: PsychosocialAssessment; icdCodes: IcdCode[]; followUpQuestions: FollowUpQuestion[] };
   readOnly?: boolean;
   approverName?: string;
   onApproverNameChange?: (name: string) => void;

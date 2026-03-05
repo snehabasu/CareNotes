@@ -6,7 +6,7 @@ import type {
   SoapNote,
   PsychosocialAssessment,
   ConfidenceLevel,
-} from "@civicguard/shared";
+} from "@carenotes/shared";
 
 type Props = {
   initialNote: FullCaseNote;

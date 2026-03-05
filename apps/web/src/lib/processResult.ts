@@ -4,8 +4,8 @@ import type {
   SoapNote,
   StressFlag,
   ConfidenceLevel,
-} from "@civicguard/shared";
-import { LEGAL_STATUS_SIGNALS } from "@civicguard/shared";
+} from "@carenotes/shared";
+import { LEGAL_STATUS_SIGNALS } from "@carenotes/shared";
 
 const VALID_CONFIDENCE: ConfidenceLevel[] = [
   "high",
@@ -87,6 +87,29 @@ export function validateFullCaseNote(note: FullCaseNote): string[] {
   }
   if (!Array.isArray(note.boundaries?.insurancePhrasing)) {
     errors.push("boundaries.insurancePhrasing must be an array");
+  }
+
+  // ICD codes validation
+  if (!Array.isArray(note.icdCodes)) {
+    errors.push("icdCodes must be an array");
+  } else {
+    note.icdCodes.forEach((c, i) => {
+      if (!c.code?.trim()) errors.push(`icdCodes[${i}].code is empty`);
+      if (!c.description?.trim()) errors.push(`icdCodes[${i}].description is empty`);
+      if (!VALID_CONFIDENCE.includes(c.confidence)) {
+        errors.push(`icdCodes[${i}].confidence is invalid: "${c.confidence}"`);
+      }
+    });
+  }
+
+  // Follow-up questions validation
+  if (!Array.isArray(note.followUpQuestions)) {
+    errors.push("followUpQuestions must be an array");
+  } else {
+    note.followUpQuestions.forEach((q, i) => {
+      if (!q.question?.trim()) errors.push(`followUpQuestions[${i}].question is empty`);
+      if (!q.rationale?.trim()) errors.push(`followUpQuestions[${i}].rationale is empty`);
+    });
   }
 
   // Legal status leak detection — scan all text output for forbidden terms

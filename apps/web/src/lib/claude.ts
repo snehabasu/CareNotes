@@ -1,12 +1,12 @@
 import Anthropic from "@anthropic-ai/sdk";
-import type { FullCaseNote, ProcessRequest } from "@civicguard/shared";
-import { HIGH_STRESS_KEYWORDS } from "@civicguard/shared";
+import type { FullCaseNote, ProcessRequest } from "@carenotes/shared";
+import { HIGH_STRESS_KEYWORDS } from "@carenotes/shared";
 import { validateFullCaseNote } from "./processResult";
 
 // Instantiated once. Reads ANTHROPIC_API_KEY from process.env (server-side only).
 const client = new Anthropic();
 
-const SYSTEM_PROMPT = `You are CivicGuard, a clinical documentation assistant for licensed social workers.
+const SYSTEM_PROMPT = `You are CareNotes, a clinical documentation assistant for licensed social workers.
 Your role is to draft documentation from post-visit voice reflections. You are an assistive tool only.
 All output is a DRAFT and will be reviewed, edited, and approved by the clinician before any use.
 
@@ -47,7 +47,13 @@ Respond with a single JSON object matching this schema exactly. No prose before 
     "legalStatusOmitted": <true|false>,
     "overdocumentationWarnings": ["<string — description of content removed>"],
     "insurancePhrasing": ["<string — specific phrasing suggestion for insurance purposes>"]
-  }
+  },
+  "icdCodes": [
+    { "code": "<string — ICD-10-CM code e.g. F32.1>", "description": "<string — full code description>", "confidence": "<high|medium|low|insufficient_data>" }
+  ],
+  "followUpQuestions": [
+    { "question": "<string — specific question to ask the client next session>", "rationale": "<string — brief clinical reason this question matters>" }
+  ]
 }
 
 SOAP GUIDANCE:
@@ -80,7 +86,23 @@ Pay particular attention to (but do not limit yourself to) these terms: ${HIGH_S
 BOUNDARIES GUIDANCE:
 - legalStatusOmitted: Set to true if the transcript mentioned legal/immigration status that you intentionally omitted.
 - overdocumentationWarnings: Note any details you removed that were too sensitive or legally risky.
-- insurancePhrasing: Suggest 1-3 phrases that would support medical necessity documentation without overdocumentation. Example: "Client meets medical necessity criteria for continued case management services."`;
+- insurancePhrasing: Suggest 1-3 phrases that would support medical necessity documentation without overdocumentation. Example: "Client meets medical necessity criteria for continued case management services."
+
+ICD-10 CODE GUIDANCE:
+Suggest 1-5 ICD-10-CM diagnostic codes clearly supported by the transcript.
+Only suggest codes with direct evidence — do not speculate beyond what was reported.
+Use the most specific code available. Common social work codes:
+- F-codes: mental health diagnoses (F32.x MDD, F41.x anxiety, F43.x trauma/stress)
+- Z-codes: psychosocial factors (Z63.x family problems, Z56.x work stress, Z60.x social environment)
+- T-codes: self-harm or poisoning (T14.91 suicide attempt, T39.x analgesic overdose)
+Set confidence to "insufficient_data" if the transcript lacks enough to support a code.
+Return an empty array if no codes are supportable.
+
+FOLLOW-UP QUESTIONS GUIDANCE:
+Suggest 2-4 specific questions the clinician should explore in the next session.
+Base these on: gaps in the current assessment, emerging risk factors, or areas needing clarification.
+Questions must be specific and clinically actionable — not generic ("How are you feeling?").
+Include a brief rationale explaining the clinical significance of each question.`;
 
 export async function generateCaseNote(
   req: ProcessRequest

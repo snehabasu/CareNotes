@@ -7,7 +7,9 @@ export type NoteType =
   | "narrative"
   | "psychosocial"
   | "flags"
-  | "boundaries";
+  | "boundaries"
+  | "icd"
+  | "followup";
 
 const PILLS: { type: NoteType; label: string }[] = [
   { type: "soap", label: "SOAP" },
@@ -15,6 +17,8 @@ const PILLS: { type: NoteType; label: string }[] = [
   { type: "psychosocial", label: "Psychosocial" },
   { type: "flags", label: "Flags" },
   { type: "boundaries", label: "Boundaries" },
+  { type: "icd", label: "ICD Codes" },
+  { type: "followup", label: "Next Session" },
 ];
 
 type Props = {

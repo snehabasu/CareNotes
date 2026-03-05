@@ -2,7 +2,7 @@
 
 import { useEffect, useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import type { FullCaseNote, ApprovedCaseNote } from "@civicguard/shared";
+import type { FullCaseNote, ApprovedCaseNote } from "@carenotes/shared";
 import { getNoteById, saveNote } from "@/lib/noteStorage";
 import { ReviewSidebar } from "@/components/ReviewSidebar";
 import { ContextTab } from "@/components/review/ContextTab";
@@ -70,6 +70,8 @@ function ReviewContent() {
       psychosocial: note.psychosocial,
       stressFlags: note.stressFlags,
       boundaries: note.boundaries,
+      icdCodes: note.icdCodes,
+      followUpQuestions: note.followUpQuestions,
     };
 
     // Save approved note to localStorage (overwrites the draft)

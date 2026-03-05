@@ -1,4 +1,4 @@
-import type { FullCaseNote, ApprovedCaseNote } from "@civicguard/shared";
+import type { FullCaseNote, ApprovedCaseNote } from "@carenotes/shared";
 
 export type StoredNote = FullCaseNote | ApprovedCaseNote;
 

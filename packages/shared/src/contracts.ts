@@ -51,6 +51,25 @@ export type PsychosocialAssessment = {
 };
 
 /**
+ * A suggested ICD-10-CM diagnostic code based on the session transcript.
+ * Confidence reflects how well-supported the code is by the transcript.
+ */
+export type IcdCode = {
+  code: string;
+  description: string;
+  confidence: ConfidenceLevel;
+};
+
+/**
+ * A clinician follow-up question suggested for the next session,
+ * grounded in gaps or emerging concerns from the current visit.
+ */
+export type FollowUpQuestion = {
+  question: string;
+  rationale: string;
+};
+
+/**
  * Documentation boundary guidance — what was omitted and why,
  * plus insurance-relevant phrasing suggestions.
  */
@@ -77,6 +96,8 @@ export type FullCaseNote = {
   psychosocial: PsychosocialAssessment;
   stressFlags: StressFlag[];
   boundaries: DocumentationBoundary;
+  icdCodes: IcdCode[];
+  followUpQuestions: FollowUpQuestion[];
 };
 
 /**
@@ -95,6 +116,8 @@ export type ApprovedCaseNote = {
   psychosocial: PsychosocialAssessment;
   stressFlags: StressFlag[];
   boundaries: DocumentationBoundary;
+  icdCodes: IcdCode[];
+  followUpQuestions: FollowUpQuestion[];
 };
 
 /** Shape returned by POST /api/transcribe */
